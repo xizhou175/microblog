@@ -1,0 +1,17 @@
+{% extends "microblog/base.html" %}
+
+{% block content %}
+    <h1>Sign In</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {{ field.label }}<br>
+            {{ field }}<br>
+            <span style="color: red;">{{ field.errors }}</span>
+        </p>
+        {% endfor %}
+        <p><input type="submit" value="Login"></p>
+        <p>New User? <a href="{% url 'microblog:register' %}">Click to Register!</a></p>
+    </form>
+{% endblock %}

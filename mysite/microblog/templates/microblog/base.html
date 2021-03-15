@@ -1,0 +1,31 @@
+<html>
+    <head>
+        {% if title %}
+        <title>{{ title }} - Microblog</title>
+        {% else %}
+        <title>Welcome to Microblog</title>
+        {% endif %}
+    </head>
+    <body>
+        <div>
+            Microblog:
+            <a href="{% url 'microblog:index' %}">Home</a>
+            {% if current_user.is_authenticated %}
+            <a href="{% url 'microblog:logout' %}">Logout</a>
+            <a href="{% url 'microblog:user' current_user.username %}">Profile</a>
+            <a href="{% url 'microblog:explore' %}">Explore</a>
+            {% else %}
+            <a href="{% url 'microblog:login' %}">Login</a>
+            {% endif %}
+        </div>
+        <hr>
+        {% if messages %}
+        <ul>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% block content %}{% endblock %}
+    </body>
+</html>

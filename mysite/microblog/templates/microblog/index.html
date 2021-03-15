@@ -1,0 +1,30 @@
+
+{% extends "microblog/base.html" %}
+
+{% block content %}
+    <h1>Hi, {{ current_user.username }}!</h1>
+    {% if form %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>
+            {{ form.post.label }}<br>
+            {{ form.post }}<br>
+            <span style="color: red;">{{ form.post.errors.0 }}</span>
+        </p>
+        <p><input type="submit" value="Submit"></p>
+    </form>
+    {% endif %}
+    {% for post in page_obj %}
+    <p>
+    <a href="{% url 'microblog:user' post.user.username %}">{{ post.user.username }}</a> says: <b>{{ post.body }}</b>
+    </p>
+    {% endfor %}
+    {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+{% endblock %}

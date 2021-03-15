@@ -1,0 +1,48 @@
+{% extends "microblog/base.html" %}
+
+{% block content %}
+    <table>
+        <tr valign="top">
+            <td><img src="{{ user.avatar_128}}"></td>
+            <td><h1>User: {{ user.username }}</h1>
+            {% if user.about_me %}<p>{{ user.about_me }}</p>{% endif %}
+            {% if user.last_login %}<p>Last seen on: {{ user.last_login}}</p>{% endif %}
+                <p>{{ user.user_set.count }} followers, {{ user.following.count }} following.</p>
+            {% if user == current_user %}
+            <p><a href="{% url 'microblog:edit_profile' %}">Edit your profile</a></p>
+            {% elif not following %}
+            <p>
+                    <form action="{% url 'microblog:follow' username=user.username %}" method="post">
+                        {% csrf_token %}
+                        <p><input type="submit" value="Follow"></p>
+                    </form>
+                </p>
+                {% else %}
+            <p>
+                    <form action="{% url 'microblog:unfollow' username=user.username %}" method="post">
+                        {% csrf_token %}
+                        <p><input type="submit" value="Unfollow"></p>
+                    </form>
+                </p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+    <hr>
+    {% for post in page_obj %}
+    <table>
+        <tr valign="top">
+            <td><img src="{{ post.user.avatar_36 }}"></td>
+            <td><a href="{% url 'microblog:user' post.user.username %}">{{ post.user.username }}</a> says:<br>{{ post.body }}</td>
+        </tr>
+    </table>
+    {% endfor %}
+    {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+{% endblock %}

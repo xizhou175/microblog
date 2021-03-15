@@ -1,0 +1,29 @@
+{% extends "microblog/base.html" %}
+
+{% block content %}
+    <h1>Register</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        <p>
+            {{ form.username.label }}<br>
+            {{ form.username }}<br>
+            <span style="color: red;">{{ form.errors.username.0 }}</span>
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email }}<br>
+            <span style="color: red;">{{ form.errors.email.0 }}</span>
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password }}<br>
+            <span style="color: red;">{{ form.errors.password.0 }}</span>
+        </p>
+        <p>
+            {{ form.password2.label }}<br>
+            {{ form.password2 }}<br>
+            <span style="color: red;">{{ form.errors.password2.0 }}</span>
+        </p>
+        <p><input type="submit" value="Submit"></p>
+    </form>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "microblog/base.html" %}
+
+{% block content %}
+    <h1>Register</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+        <p>
+            {{ field.label }}<br>
+            {{ field }}<br>
+            <span style="color: red;">{{ field.errors }}</span>
+        </p>
+        {% endfor %}
+        <p><input type="submit" value="Submit"></p>
+    </form>
+{% endblock %}
