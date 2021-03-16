@@ -52,7 +52,7 @@ class EmptyForm(forms.Form):
 
 class PostForm(forms.Form):
     post = fields.CharField(required=True, max_length=140, min_length=1,
-                            widget=forms.Textarea(attrs={'cols': 50, 'rows': 20}))
+                            widget=forms.Textarea(attrs={'cols': 50, 'rows': 10}))
 
 '''
 class LoginForm(forms.ModelForm):

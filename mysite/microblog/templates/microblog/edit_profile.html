@@ -1,19 +1,11 @@
 {% extends "microblog/base.html" %}
+{% load bootstrap3 %}
 
-{% block content %}
+{% block app_content %}
     <h1>Edit Profile</h1>
-    <form action="" method="post">
+    <form role="form" method="post">
         {% csrf_token %}
-        <p>
-            {{ form.username.label }}<br>
-            {{ form.username }}<br>
-            <span style="color: red;">{{ form.username.errors.0 }}</span>
-        </p>
-        <p>
-            {{ form.about_me.label }}<br>
-            {{ form.about_me }}<br>
-            <span style="color: red;">{{ form.about_me.errors.0 }}</span>
-        </p>
-        <p><input type="submit" value="Submit"></p>
+        {% bootstrap_form form %}
+        {% buttons submit='submit' %}{% endbuttons %}
     </form>
 {% endblock %}
